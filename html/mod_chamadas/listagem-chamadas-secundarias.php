@@ -74,63 +74,63 @@ defined('_JEXEC') or die;
 	}
 </style>
 <div id="chamadas-secundarias" :class="params.moduleclass_sfx">
-<div class="listagem-chamadas-secundarias">
-	<transition-group name="list"  mode="out-in" tag="p" v-on:after-leave="onEnter">
-		<div class="row-fluid" v-for="item in items" :key="item.id">
-			<div class="list-article-container">
-				<?php if ($params->get('exibir_imagem')) : ?>
-				<div class="image-container" v-if="item.image_url">
-					<a href="{{item.chapeu}}" target="_blank">
-						<img src="{{item.image_url}}" width="200" height="130" class="img-rounded" alt="{{item.image_alt}}" />
-					</a>
-				</div>
-				<?php endif; ?>		
-				<div class="content-container">
-					<h3>
-						<a :href="getLink(item)" target="_blank">
-							{{getTitle(item)}}
+	<div class="listagem-chamadas-secundarias">
+		<transition-group name="list"  mode="out-in" tag="p" v-on:after-leave="onEnter">
+			<div class="row-fluid" v-for="item in items" :key="item.id">
+				<div class="list-article-container">
+					<?php if ($params->get('exibir_imagem')) : ?>
+					<div class="image-container" v-if="item.image_url">
+						<a href="{{item.chapeu}}" target="_blank">
+							<img src="{{item.image_url}}" width="200" height="130" class="img-rounded" alt="{{item.image_alt}}" />
 						</a>
-					</h3>
-					<div class="description" v-if="params.exibir_introtext != '0'" v-html="item.introtext">
+					</div>
+					<?php endif; ?>		
+					<div class="content-container">
+						<h3>
+							<a :href="getLink(item)" target="_blank">
+								{{getTitle(item)}}
+							</a>
+						</h3>
+						<div class="description" v-if="params.exibir_introtext != '0'" v-html="item.introtext">
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</transition-group>
-</div>
-<div class="pagination" v-if="page_total > 1">
-		<p class="counter pull-left">
-			Página <transition name="pagina-transition" mode="out-in"><span :key="this.page">{{this.page}}</span></transition> de {{this.page_total}} 
-		</p>
-	</transition>
-	<ul class="pull-right">
-        <template>
-		<li class="pagination-start"><a title="Início" href="#" v-on:click="gotoPagina($event,1)" class="hasTooltip pagenav" v-bind:class="{ nolink: this.page == 1 }"><<</a></li>
-		<li class="pagination-prev"><a title="Ant" href="#" v-on:click="gotoPagina($event,page-1)" class="hasTooltip pagenav" v-bind:class="{ nolink: this.page == 1 }"><</a></li>
-        </template>
-		<template v-for="pagina in page_range">
-			<li><a class="pagenav" v-bind:class="{ nolink: pagina == page }" href="#" v-on:click="gotoPagina($event,pagina)">{{pagina}}</a></li>
-        </template>
-		<template>
-			<li class="pagination-next"><a title="Próximo" href="#" v-on:click="gotoPagina($event,page+1)" class="hasTooltip pagenav" v-bind:class="{ nolink: this.page == this.page_total }">></a></li>
-			<li class="pagination-end"><a title="Fim" href="#" v-on:click="gotoPagina($event,page_total)" class="hasTooltip pagenav" v-bind:class="{ nolink: this.page == this.page_total }">>></a></li>
-        </template>
-    </ul>
-</div>
-<?php if (! empty($link_saiba_mais) ): ?>
-	<div class="outstanding-footer">
-		<a href="<?php echo $link_saiba_mais; ?>" class="outstanding-link">
-			<?php if ($params->get('texto_saiba_mais')): ?>
-				<span class="text"><?php echo $params->get('texto_saiba_mais')?></span>
-			<?php else: ?>
-				<span class="text">saiba mais</span>
-			<?php endif;?>
-			<span class="icon-box">                                          
-		      <i class="icon-angle-right icon-light"><span class="hide">&nbsp;</span></i>
-		    </span>
-		</a>	
+		</transition-group>
 	</div>
-<?php endif; ?>
+	<div class="pagination" v-if="page_total > 1">
+			<p class="counter pull-left">
+				Página <transition name="pagina-transition" mode="out-in"><span :key="this.page">{{this.page}}</span></transition> de {{this.page_total}} 
+			</p>
+		</transition>
+		<ul class="pull-right">
+			<template>
+			<li class="pagination-start"><a title="Início" href="#" v-on:click="gotoPagina($event,1)" class="hasTooltip pagenav" v-bind:class="{ nolink: this.page == 1 }"><<</a></li>
+			<li class="pagination-prev"><a title="Ant" href="#" v-on:click="gotoPagina($event,page-1)" class="hasTooltip pagenav" v-bind:class="{ nolink: this.page == 1 }"><</a></li>
+			</template>
+			<template v-for="pagina in page_range">
+				<li><a class="pagenav" v-bind:class="{ nolink: pagina == page }" href="#" v-on:click="gotoPagina($event,pagina)">{{pagina}}</a></li>
+			</template>
+			<template>
+				<li class="pagination-next"><a title="Próximo" href="#" v-on:click="gotoPagina($event,page+1)" class="hasTooltip pagenav" v-bind:class="{ nolink: this.page == this.page_total }">></a></li>
+				<li class="pagination-end"><a title="Fim" href="#" v-on:click="gotoPagina($event,page_total)" class="hasTooltip pagenav" v-bind:class="{ nolink: this.page == this.page_total }">>></a></li>
+			</template>
+		</ul>
+	</div>
+	<?php if (! empty($link_saiba_mais) ): ?>
+		<div class="outstanding-footer">
+			<a href="<?php echo $link_saiba_mais; ?>" class="outstanding-link">
+				<?php if ($params->get('texto_saiba_mais')): ?>
+					<span class="text"><?php echo $params->get('texto_saiba_mais')?></span>
+				<?php else: ?>
+					<span class="text">saiba mais</span>
+				<?php endif;?>
+				<span class="icon-box">                                          
+				<i class="icon-angle-right icon-light"><span class="hide">&nbsp;</span></i>
+				</span>
+			</a>	
+		</div>
+	<?php endif; ?>
 </div>
 <script>
 var chSecund=new Vue({
